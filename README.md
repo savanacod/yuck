@@ -4,7 +4,7 @@ Hi! I'm currently working on this platformer, it's my first time using python
 so the process is a bit slow.
 
 To play, open the link provided, which should take you to the release.
-It contains a zip file, click on that to download the zip for the game.
+It contains a zip file, click on that to download the zip for the game (should be WIPplatformer)
 It needs to be extracted in order to get the game.
 Once extracted, you should see game.exe, click on that to test out the game
 
