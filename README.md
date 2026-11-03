@@ -12,3 +12,4 @@ Currently, the only thing you can do is make the sprite move back and forth with
 (I didn't add any code for jumping yet, or any blocks, will do in next release)
 
 Let me know if anything doesn't work!
+<img width="1237" height="1007" alt="Screenshot 2026-11-02 205102" src="https://github.com/user-attachments/assets/e94ec909-bd38-475a-a49d-e881081e3d7e" />
