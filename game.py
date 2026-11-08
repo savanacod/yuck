@@ -2,6 +2,10 @@ import os
 import random
 import math
 import pygame
+import sys
+def resource_path(relative_path):
+        base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
+        return os.path.join(base_path, relative_path)
 from os import listdir
 from os.path import isfile, join
 from os.path import join, dirname
@@ -20,7 +24,7 @@ def flip(sprites):
     return [pygame.transform.flip(sprite, True, False) for sprite in sprites]
 
 def load_sprite_sheets(dir1, dir2, width, height, direction=False):
-    path = join(dirname(__file__), "assets", dir1, dir2)
+    path = join(resource_path("assets"), dir1, dir2)
     images = [f for f in listdir(path) if isfile(join(path, f))]
 
     all_sprites = {}
@@ -47,7 +51,7 @@ def get_block(size):
     path = join("assets", "Terrain", "grass.jpg")
     image = pygame.image.load(path).convert_alpha()
     surface = pygame.Surface(size, size), pygame.SRCALPHA, 64
-    rect = pygame.Rect(64, 0, size, size)
+    rect = pygame.Rect(64, 0, size, size) 
     surface.blit(image, (0, 0), rect)
     return pygame.transform.scale2x(surface)
 
@@ -55,7 +59,7 @@ class Player(pygame.sprite.Sprite):
     COLOR = (255, 0, 0)
     GRAVITY = 1
     SPRITES = load_sprite_sheets("Character", "guy", 32, 32, True)
-    ANIMATION_DELAY = 3
+    ANIMATION_DELAY = 2.5
 
     def __init__(self, x, y, width, height):
         self.rect = pygame.Rect(x, y, width, height)
@@ -97,7 +101,7 @@ class Player(pygame.sprite.Sprite):
         sprite_sheet_name = sprite_sheet + "_" + self.direction
         sprites = self.SPRITES[sprite_sheet_name]
         sprite_index = self.animation_count // self.ANIMATION_DELAY % len(sprites)
-        self.sprite = sprites[sprite_index]
+        self.sprite = sprites[int(sprite_index)]
         self.animation_count += 1
         self.update()
 
@@ -130,7 +134,7 @@ class Block(Object):
         
 
 def get_background(name):
-    image = pygame.image.load(join("assets", "Background", name))
+    image = pygame.image.load(join(resource_path("assets"), "Background", name))
     _, _, width, height = image.get_rect()
     tiles = []
 
@@ -178,7 +182,7 @@ def main(window):
         draw(window, background, bg_image, player)
 
     pygame.quit() 
-    quit()
+    sys.exit()
 
 if __name__ == "__main__":
     main(window) 
