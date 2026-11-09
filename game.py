@@ -219,9 +219,9 @@ def handle_move(player, objects):
     collide_left = collide(player, objects, -PLAYER_VEL * 2)
     collide_right = collide(player, objects, PLAYER_VEL * 2)
 
-    if keys[pygame.K_LEFT] and not collide_left:
+    if (keys[pygame.K_LEFT] or keys[pygame.K_a]) and not collide_left:
         player.move_left(PLAYER_VEL)
-    if keys[pygame.K_RIGHT] and not collide_right:
+    if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and not collide_right:
         player.move_right(PLAYER_VEL)
 
     handle_vertical_collision(player, objects, player.y_vel)
@@ -232,10 +232,28 @@ def main(window):
 
     block_size = 96
 
-    player = Player(100,100, 32, 32)
-    blocks = [Block(i * 64, HEIGHT - 64, 64) for i in range(-WIDTH // 64, WIDTH // 64 + 2)
-                for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
-    objects = [*blocks, Block(0, HEIGHT - block_size * 2, block_size), Block(block_size * 3, HEIGHT - block_size * 4, block_size)]
+    player = Player(100, (HEIGHT - 64 - 32), 32, 32)
+    blocks = []
+
+    level_map = [
+       "." * 5 + "." * 35 + "X" * 3 + "." * 62,
+       "." * 5 + "." * 28 + "X" * 2 + "." * 70,
+       "." * 5 + "." * 21 + "X" * 4 + "." * 75,
+       "." * 5 + "." * 14 + "X" * 3 + "." * 83,
+       "." * 5 + "." * 7 + "X" * 4 + "." * 89,
+       "." * 105,
+       "X" * 105
+    ]
+
+    for row_index, row in enumerate(level_map):
+        for col_index, char in enumerate(row):
+            if char =="X":
+                x_pos = col_index * 64
+                y_pos = (HEIGHT - (len(level_map) * 64)) + (row_index * 64)
+
+                blocks.append(Block(x_pos, y_pos, 64))
+
+    objects = [*blocks]
     
     offset_x = 0
     scroll_area_width = 200
@@ -250,7 +268,7 @@ def main(window):
                 break
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and player.jump_count < 2:
+                if (event.key == pygame.K_UP or event.key == pygame.K_SPACE or event.key == pygame.K_w) and player.jump_count < 2:
                     player.jump()
 
         player.loop(FPS)
