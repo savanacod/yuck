@@ -5,6 +5,7 @@ Link to the new release: https://github.com/savanacod/yuck/releases/tag/v1.1.0
 This is the basic platformer, I have platforms/blocks, a sliding screen, and my own sprites
 To play, open the link to the release and open the executable (no extracting necessary this time, hopefully it works)
 * forgot to add, can use WASD, space bar, or arrow keys to make the character move, he can also double jump (hooray!)
+* Sprite sorta changes size when it moves, will fix later, not that big of a deal at the moment
 
 Picture of updated game should be attached 
 
