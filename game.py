@@ -17,11 +17,15 @@ PLAYER_VEL = 5
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
+    return os.path.join(base_path, relative_path)
+
 def flip(sprites):
     return [pygame.transform.flip(sprite, True, False) for sprite in sprites]
 
 def load_sprite_sheets(dir1, dir2, width, height, direction=False):
-    path = join("assets", dir1, dir2)
+    path = join(resource_path("assets"), dir1, dir2)
     images = [f for f in listdir(path) if isfile(join(path, f))]
 
     all_sprites = {}
@@ -46,7 +50,7 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
     return all_sprites
 
 def get_block(size):
-    path = join("assets", "Terrain", "block1.jpg")
+    path = join(resource_path("assets"), "Terrain", "block1.jpg")
     image = pygame.image.load(path).convert()
     surface = pygame.Surface((size, size), pygame.SRCALPHA)
     rect = pygame.Rect(0, 0, 64, 64) 
@@ -163,7 +167,7 @@ class Block(Object):
         
 
 def get_background(name):
-    image = pygame.image.load(join("assets", "Background", name))
+    image = pygame.image.load(join(resource_path("assets"), "Background", name))
     _, _, width, height = image.get_rect()
     tiles = []
 
